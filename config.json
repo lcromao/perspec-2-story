@@ -1,0 +1,126 @@
+{
+  "openrouter_url": "https://openrouter.ai/api/v1/chat/completions",
+  "app_title": "CAIN 2027 - Data and Model Stories expert evaluation",
+  "app_url": "",
+  "prompts": {
+    "system": "prompts/01_System_Prompt_EN.md",
+    "shared_context": "prompts/02_Project_Context_EN.md",
+    "execution": "prompts/03_Execution_Prompt_EN.md"
+  },
+  "pair_context_pattern": "contexts/02_Context_{pair}_EN.md",
+  "runs_dir": "runs",
+  "provider_defaults": {
+    "data_collection": "deny",
+    "require_parameters": true
+  },
+  "defaults": {
+    "orders": [
+      "original",
+      "swapped"
+    ],
+    "reps": 3,
+    "workers": 4,
+    "max_invalid_retries": 2,
+    "http_retries": 5,
+    "timeout_s": 1800
+  },
+  "judges": [
+    {
+      "id": "sonnet-5.5",
+      "env": "SONNET",
+      "model": "anthropic/claude-sonnet-5.5",
+      "weights": "closed",
+      "reasoning": {
+        "effort": "high"
+      },
+      "max_tokens": 64000,
+      "structured_output": false,
+      "provider": null
+    },
+    {
+      "id": "gpt-6.1-sol",
+      "env": "SOL",
+      "model": "openai/gpt-6.1-sol",
+      "weights": "closed",
+      "reasoning": {
+        "effort": "high"
+      },
+      "max_tokens": 64000,
+      "structured_output": true,
+      "provider": null
+    },
+    {
+      "id": "qwen3.8-max",
+      "env": "QWEN",
+      "model": "qwen/qwen3.8-max-0902",
+      "weights": "closed",
+      "reasoning": {
+        "effort": "high"
+      },
+      "max_tokens": 64000,
+      "structured_output": true,
+      "provider": null
+    },
+    {
+      "id": "deepseek-v4.1-flash",
+      "env": "DEEPSEEK",
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "weights": "open",
+      "reasoning": {
+        "effort": "high"
+      },
+      "max_tokens": 64000,
+      "structured_output": true,
+      "provider": {
+        "order": [
+          "together"
+        ],
+        "allow_fallbacks": false
+      }
+    },
+    {
+      "id": "nemotron-test",
+      "env": "TEST",
+      "role": "pilot only, never part of the study",
+      "enabled": false,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "weights": "open",
+      "reasoning": {
+        "effort": "high"
+      },
+      "max_tokens": 64000,
+      "structured_output": true,
+      "provider": null
+    }
+  ],
+  "pairs": {
+    "M1": {
+      "form": "A",
+      "project": "M",
+      "x": "A",
+      "y": "B",
+      "mapping": "A"
+    },
+    "M2": {
+      "form": "B",
+      "project": "M",
+      "x": "D",
+      "y": "C",
+      "mapping": "C"
+    },
+    "N1": {
+      "form": "C",
+      "project": "N",
+      "x": "B",
+      "y": "A",
+      "mapping": "B"
+    },
+    "N2": {
+      "form": "D",
+      "project": "N",
+      "x": "C",
+      "y": "D",
+      "mapping": "D"
+    }
+  }
+}

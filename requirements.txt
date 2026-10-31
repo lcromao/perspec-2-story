@@ -1,0 +1,2 @@
+# Only needed for figures and the RQ1/RQ2 analyses. The judge runner itself uses the standard library only.
+matplotlib>=3.8
